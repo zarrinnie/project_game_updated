@@ -10,6 +10,8 @@ public class Item
     private String name;
     [SerializeField]
     private bool isHidden;
+    [SerializeField]
+    private GameObject itemGameObj;
 
     Item(String name)
     {
@@ -18,6 +20,14 @@ public class Item
 
     public String getName(){
         return this.name;
+    }
+
+    public bool getHiddenStatus(){
+        return this.isHidden;
+    }
+
+    public GameObject getReferencedItem(){
+        return this.itemGameObj;
     }
 
     public override String ToString()
