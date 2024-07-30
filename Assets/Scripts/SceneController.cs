@@ -1,18 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class Sceneswitcher : MonoBehaviour
+public class SceneController : MonoBehaviour
 {
+    // Scene to switch to
     public string scene;
     public Image imageToZoom;
     private Animator imageAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
         imageAnimator = imageToZoom.GetComponent<Animator>();
+    }
+
+    // Called when pressing on quit 
+    public void quit(){
+        // We can't quit in the editor
+        Debug.Log("QUIT");
+        Application.Quit();
     }
 
     // Called when pressing the start button
