@@ -11,7 +11,7 @@ public class ItemContainer : MonoBehaviour
         for(int i = 0; i < items.Length; i++){
             GameObject textbox = new GameObject(String.Format("item_{0}", i));
             textbox.transform.SetParent(this.transform);
-            textbox.AddComponent<TextMeshProUGUI>().text = items[i].getName();
+            textbox.AddComponent<TextMeshProUGUI>().text = items[i].Name;
         }
         
     }

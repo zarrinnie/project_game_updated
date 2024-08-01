@@ -29,7 +29,7 @@ public class ClickHandler : MonoBehaviour
         if (usedHints < availableHints)
         {
             int randIndex = Random.Range(0, itemContainer.items.Length);
-            hintButton.GetComponentInChildren<TextMeshProUGUI>().SetText(itemContainer.items[randIndex].getName());
+            hintButton.GetComponentInChildren<TextMeshProUGUI>().SetText(itemContainer.items[randIndex].Name);
             usedHints++;
 
             if(usedHints == availableHints){

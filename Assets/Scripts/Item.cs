@@ -7,37 +7,58 @@ using System;
 public class Item
 {
     [SerializeField]
-    private String name;
-    [SerializeField]
     private bool isHidden;
+
+    private TextMeshProUGUI textLabel;
+
+    public TextMeshProUGUI TextLabel {
+        get; set;
+    }
+
+    public string Name
+    {
+        get
+        {
+            return Entity.name;
+        }
+        set
+        {
+            Entity.name = value;
+        }
+    }
+
+    public bool Hidden
+    {
+        get
+        {
+            return isHidden;
+        }
+        set
+        {
+            isHidden = value;
+        }
+    }
+
     [SerializeField]
-    private GameObject itemGameObj;
+    private GameObject entity;
 
-    Item(String name)
+    public GameObject Entity {
+        get {
+            return entity;
+        } 
+
+        set {
+            entity = value;
+        }
+    }
+
+    public override string ToString()
     {
-        this.name = name;
-    }
-
-    public String getName(){
-        return this.name;
-    }
-
-    public bool getHiddenStatus(){
-        return this.isHidden;
-    }
-
-    public GameObject getReferencedItem(){
-        return this.itemGameObj;
-    }
-
-    public override String ToString()
-    {
-        if (isHidden)
+        if (Hidden)
         {
 
-            return String.Format("{0} item named: {1}", "Hidden", this.name);
+            return string.Format("{0} item named: {1}", "Hidden", Name);
         }
-        return String.Format("{0} item named: {1}", "Hidden", this.name);
-
+        return string.Format("{0} item named: {1}", "Hidden", Name);
     }
 }
