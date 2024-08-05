@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 [Serializable]
 public class Item
@@ -60,5 +60,18 @@ public class Item
             return string.Format("{0} item named: {1}", "Hidden", Name);
         }
         return string.Format("{0} item named: {1}", "Hidden", Name);
+    }
+    
+    public IEnumerator jumpToDrawer(){
+        // TODO: Figure out how to go towards the thing
+        while(Entity.transform.position != new Vector3(0.9f, 0.9f)){
+            float speed = Mathf.MoveTowards(Entity.transform.position.x, 0.9f, 20f * Time.deltaTime);
+            Entity.transform.position = Vector2.Lerp(Entity.transform.position, new Vector2(0.9f, 0.9f), speed);
+            yield return null;
+        }
+
+        TextLabel.SetText(string.Format("<s>{0}</s>", TextLabel.text));
+
+        yield return null;
     }
 }
