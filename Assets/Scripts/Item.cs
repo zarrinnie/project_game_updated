@@ -62,11 +62,15 @@ public class Item
         return string.Format("{0} item named: {1}", "Hidden", Name);
     }
     
-    public IEnumerator jumpToDrawer(){
+    public IEnumerator jumpToDrawer(Vector3 startPos, Vector3 textPos, float t){
+        float speed = 1.5f;
         // TODO: Figure out how to go towards the thing
-        while(Entity.transform.position != new Vector3(0.9f, 0.9f)){
-            float speed = Mathf.MoveTowards(Entity.transform.position.x, 0.9f, 20f * Time.deltaTime);
-            Entity.transform.position = Vector2.Lerp(Entity.transform.position, new Vector2(0.9f, 0.9f), speed);
+        while(t < 1){
+            t += Time.deltaTime / speed;
+
+            if(t > 1) t = 1;
+
+            Entity.transform.position = Vector3.Lerp(startPos, textPos, t);
             yield return null;
         }
 

@@ -5,17 +5,17 @@ public class ItemContainer : MonoBehaviour
 {
     public Item[] items;
     public AudioClip foundSoundEffect;
+    public TextMeshProUGUI labelPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < items.Length; i++)
         {
-            GameObject textbox = new GameObject(string.Format("{0}_text", items[i].Name));
-            textbox.transform.SetParent(transform);
-            TextMeshProUGUI textLabel = textbox.AddComponent<TextMeshProUGUI>();
+            TextMeshProUGUI textLabel = Instantiate(labelPrefab, transform, false);
+            textLabel.name = string.Format("{0}_label", items[i].Entity.name);
             items[i].TextLabel = textLabel;
-            textLabel.text = items[i].Name;
+            
             items[i].Entity.AddComponent<BoxCollider2D>();
         }
     }
@@ -31,14 +31,17 @@ public class ItemContainer : MonoBehaviour
 
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
+            // Collider has been hit
             if (hit.collider != null)
             {
+                // Iterate over every Item 
+                // Find whether the game object is the same
                 foreach (Item item in items)
                 {
                     if (item.Entity.Equals(hit.collider.gameObject) && item.Hidden)
                     {
                         item.Hidden = false;
-                        StartCoroutine(item.jumpToDrawer());
+                        StartCoroutine(item.jumpToDrawer(item.Entity.transform.position, item.TextLabel.transform.position, 0.2f));
                     }
                 }
             }
