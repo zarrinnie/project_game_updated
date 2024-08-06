@@ -6,15 +6,19 @@ public class ItemContainer : MonoBehaviour
     public Item[] items;
     public AudioClip foundSoundEffect;
     public TextMeshProUGUI labelPrefab;
+    public GameObject itemDrawer;
+    public ExplanationController explanationUI;
 
     // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < items.Length; i++)
         {
-            TextMeshProUGUI textLabel = Instantiate(labelPrefab, transform, false);
+            TextMeshProUGUI textLabel = Instantiate(labelPrefab, itemDrawer.transform, false);
             textLabel.name = string.Format("{0}_label", items[i].Entity.name);
+            textLabel.SetText(items[i].Entity.name);
             items[i].TextLabel = textLabel;
+            Debug.Log(items[i].TextLabel);
             
             items[i].Entity.AddComponent<BoxCollider2D>();
         }
@@ -41,10 +45,15 @@ public class ItemContainer : MonoBehaviour
                     if (item.Entity.Equals(hit.collider.gameObject) && item.Hidden)
                     {
                         item.Hidden = false;
-                        StartCoroutine(item.jumpToDrawer(item.Entity.transform.position, item.TextLabel.transform.position, 0.2f));
+                        StartCoroutine(item.jumpToDrawer(item.TextLabel.transform.position, this));
                     }
                 }
             }
         }
+    }
+
+    public void Toggle(){
+        explanationUI.gameObject.SetActive(true);
+        explanationUI.ToggleBlurLayer(5, 6);
     }
 }
