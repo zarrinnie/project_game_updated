@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HiddenObjectTransition: HiddenObjectBaseState 
+public class HiddenObjectTransition : HiddenObjectBaseState
 {
     public override void EnterState(HiddenObjectManager item)
     {
-        item.StartCoroutine(jumpToDrawer());
+        Debug.Log(item);
+        Debug.Log(item.drawer);
+
+        item.StartCoroutine(jumpToDrawer(item, item.drawer.meshes[item.Index].transform.position));
     }
 
     public override void UpdateState(HiddenObjectManager item)
     {
-        throw new System.NotImplementedException();
+
     }
 
-    public IEnumerator jumpToDrawer(Vector3 textPos, ItemContainer container)
+    public IEnumerator jumpToDrawer(HiddenObjectManager item, Vector3 textPos)
     {
         float t = 0;
         float timeToMove = 20f;
@@ -22,34 +25,34 @@ public class HiddenObjectTransition: HiddenObjectBaseState
 
         // The middle position between the Item
         // and its label, rounded to 1 d.p for ease
-        float middlePos = Mathf.Round(Vector2.Distance(Entity.transform.position, textPos) / 2) * 0.1f;
+        float middlePos = Mathf.Round(Vector2.Distance(item.transform.position, textPos) / 2) * 0.1f;
         while (t < 1)
         {
-            Entity.transform.position = Vector2.Lerp(Entity.transform.position, textPos, t);
+            item.transform.position = Vector2.Lerp(item.transform.position, textPos, t);
             t = t + Time.deltaTime / timeToMove;
 
             // Check the current distance between the Item 
             // and its label, rounded to 1 d.p for ease
-            distance = Mathf.Round(Vector2.Distance(Entity.transform.position, textPos)) * 0.1f;
-
+            distance = Mathf.Round(Vector2.Distance(item.transform.position, textPos)) * 0.1f;
             bool toggled = false;
 
             // If we are at the middle point, toggle the 
             // explanation UI
-            if (distance == middlePos && !explained) yield return new WaitWhile(() =>
+            if (distance == middlePos && !item.Explained) yield return new WaitWhile(() =>
             {
-                Debug.Log(explained);
-                if (!toggled)
-                {
-                    container.Toggle();
+                if (!toggled){
+                    item.explanationManager.SwitchState(item.explanationManager.explaining);
                     toggled = true;
+
+                    Debug.Log(toggled);
                 }
 
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    explained = true;
-                    container.Toggle();
-
+                    item.SwitchState(item.disabled);
+                    item.drawer.SwitchState(item.drawer.idleState);
+                    item.explanationManager.SwitchState(item.explanationManager.idle);
+                    item.Explained = true;
                     return false;
                 }
                 return true;
@@ -61,10 +64,7 @@ public class HiddenObjectTransition: HiddenObjectBaseState
                 yield return new WaitForEndOfFrame();
             }
         }
-        Entity.transform.position = textPos;
-
-        // Object reached destination
-        TextLabel.SetText(string.Format("<s>{0}</s>", TextLabel.text));
+        item.transform.position = textPos;
 
         yield return null;
     }

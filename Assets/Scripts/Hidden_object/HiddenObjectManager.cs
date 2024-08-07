@@ -8,21 +8,33 @@ public class HiddenObjectManager : MonoBehaviour
     HiddenObjectBaseState currentState;
     public HiddenObjectIdle idleState = new HiddenObjectIdle();
     public HiddenObjectTransition transitionState = new HiddenObjectTransition();
+    public HiddenObjectDisabled disabled = new HiddenObjectDisabled();
 
+    public ExplanationManager explanationManager; 
+    
+    public DrawerManager drawer;
 
-    private bool isHidden = true;
-    private bool explained = false;
+    private int index;
+    public int Index {
+        get {
+            return index;
+        }
 
-    private TextMeshProUGUI textLabel;
-
-    public TextMeshProUGUI TextLabel
-    {
-        get; set;
+        set {
+            index = Index;
+        }
     }
 
+    private bool hidden = true;
     public bool Hidden
     {
-        get; set;
+        get {
+            return hidden;
+        }
+
+        set {
+            hidden = value;
+        }
     }
 
     public bool Explained
