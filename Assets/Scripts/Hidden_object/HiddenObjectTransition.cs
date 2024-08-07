@@ -1,77 +1,17 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using System;
-using TMPro;
-using Unity.VisualScripting;
 
-[Serializable]
-public class Item
+public class HiddenObjectTransition: HiddenObjectBaseState 
 {
-    [SerializeField]
-    private bool isHidden = true;
-    private bool explained = false;
-
-    private TextMeshProUGUI textLabel;
-
-    public TextMeshProUGUI TextLabel
+    public override void EnterState(HiddenObjectManager item)
     {
-        get; set;
+        item.StartCoroutine(jumpToDrawer());
     }
 
-    public string Name
+    public override void UpdateState(HiddenObjectManager item)
     {
-        get
-        {
-            return Entity.name;
-        }
-        set
-        {
-            Entity.name = value;
-        }
-    }
-
-    public bool Hidden
-    {
-        get
-        {
-            return isHidden;
-        }
-        set
-        {
-            isHidden = value;
-        }
-    }
-
-    [SerializeField]
-    private GameObject entity;
-
-    public GameObject Entity
-    {
-        get
-        {
-            return entity;
-        }
-
-        set
-        {
-            entity = value;
-        }
-    }
-
-    public Item(GameObject entity, TextMeshProUGUI textLabel, bool isHidden = true){
-        Entity = entity;
-        Hidden = isHidden;
-        TextLabel = textLabel;
-    }
-
-    public override string ToString()
-    {
-        if (Hidden)
-        {
-
-            return string.Format("{0} item named: {1}", "Hidden", Name);
-        }
-        return string.Format("{0} item named: {1}", "Hidden", Name);
+        throw new System.NotImplementedException();
     }
 
     public IEnumerator jumpToDrawer(Vector3 textPos, ItemContainer container)
