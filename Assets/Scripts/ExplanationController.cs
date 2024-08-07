@@ -20,6 +20,7 @@ public class ExplanationController : MonoBehaviour
             transform.gameObject.layer = transform.gameObject.layer == UiLayer ? blurLayer : UiLayer;
         }
 
-        blurCam.SetActive(true);
+        blurCam.SetActive(!blurCam.activeInHierarchy);
+        gameObject.SetActive(!gameObject.activeInHierarchy);
     }
 }

@@ -53,7 +53,6 @@ public class ItemContainer : MonoBehaviour
     }
 
     public void Toggle(){
-        explanationUI.gameObject.SetActive(true);
         explanationUI.ToggleBlurLayer(5, 6);
     }
 }
