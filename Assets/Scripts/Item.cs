@@ -9,6 +9,7 @@ public class Item
 {
     [SerializeField]
     private bool isHidden = true;
+    private bool explained = false;
 
     private TextMeshProUGUI textLabel;
 
@@ -85,15 +86,25 @@ public class Item
             // and its label, rounded to 1 d.p for ease
             distance = Mathf.Round(Vector2.Distance(Entity.transform.position, textPos)) * 0.1f;
 
+            bool toggled = false;
+
             // If we are at the middle point, toggle the 
             // explanation UI
-            if (distance == middlePos) yield return new WaitWhile(() =>
+            if (distance == middlePos && !explained) yield return new WaitWhile(() =>
             {
-                bool toggled = false;
+                Debug.Log(explained);
                 if (!toggled)
                 {
                     container.Toggle();
                     toggled = true;
+                }
+
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    explained = true;
+                    container.Toggle();
+
+                    return false;
                 }
                 return true;
 
