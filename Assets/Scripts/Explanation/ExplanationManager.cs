@@ -8,6 +8,7 @@ public class ExplanationManager : MonoBehaviour {
 
     public LevelUIManager levelUIManager;
     public Canvas canvas;
+    public ClockManager clock;
 
     void Start(){
         canvas = gameObject.GetComponent<Canvas>();

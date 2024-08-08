@@ -4,6 +4,7 @@ public class ExplanationIdleState : ExplanationBaseState
     {
         explanationMenu.levelUIManager.SwitchState(explanationMenu.levelUIManager.idle);
         explanationMenu.canvas.enabled = false;
+        explanationMenu.clock.SwitchState(explanationMenu.clock.lastState);
     }
 
     public override void UpdateState(ExplanationManager explanationMenu)

@@ -7,6 +7,7 @@ public class ExplanationExplainState : ExplanationBaseState
     {
         explanationMenu.canvas.enabled = true;
         explanationMenu.levelUIManager.SwitchState(explanationMenu.levelUIManager.blurred);
+        explanationMenu.clock.SwitchState(explanationMenu.clock.paused);
     }
 
     public override void UpdateState(ExplanationManager explanationMenu)
