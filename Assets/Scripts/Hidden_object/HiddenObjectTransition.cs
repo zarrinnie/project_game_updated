@@ -6,7 +6,7 @@ public class HiddenObjectTransition : HiddenObjectBaseState
 {
     public override void EnterState(HiddenObjectManager item)
     {
-        item.StartCoroutine(jumpToDrawer(item, item.drawer.meshes[item.Index].transform.position));
+        item.StartCoroutine(jumpToDrawer(item, item.explanationManager.drawer.meshes[item.Index].transform.position));
     }
 
     public override void UpdateState(HiddenObjectManager item)
@@ -39,22 +39,15 @@ public class HiddenObjectTransition : HiddenObjectBaseState
             {
                 if (!toggled)
                 {
-                    item.explanationManager.explaining.item = item;
+                    item.explanationManager.item = item;
                     item.explanationManager.SwitchState(item.explanationManager.explaining);
                     toggled = true;
 
                     Debug.Log(toggled);
-                }
 
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    item.SwitchState(item.disabled);
-                    item.drawer.SwitchState(item.drawer.idleState);
-                    item.explanationManager.SwitchState(item.explanationManager.idle);
-                    item.Explained = true;
-                    return false;
+                    return true;
                 }
-                return true;
+                return item.currentState != item.disabled;
 
             });
             else
@@ -65,6 +58,6 @@ public class HiddenObjectTransition : HiddenObjectBaseState
         }
         item.transform.position = textPos;
 
-        yield return null;
+        yield break;
     }
 }

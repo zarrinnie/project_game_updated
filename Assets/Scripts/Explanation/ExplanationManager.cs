@@ -10,8 +10,10 @@ public class ExplanationManager : MonoBehaviour {
 
     public LevelUIManager levelUIManager;
     public Canvas canvas;
-    public TextMeshProUGUI content;
     public ClockManager clock;
+    public DrawerManager drawer;
+    [NonSerialized]
+    public HiddenObjectManager item;
     private string[] descriptions;
     public string[] Descriptions {
         get {

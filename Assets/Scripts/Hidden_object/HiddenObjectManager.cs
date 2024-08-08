@@ -3,14 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class HiddenObjectManager : MonoBehaviour
 {
-    HiddenObjectBaseState currentState;
+    public HiddenObjectBaseState currentState;
     public HiddenObjectIdle idleState = new HiddenObjectIdle();
     public HiddenObjectTransition transitionState = new HiddenObjectTransition();
     public HiddenObjectDisabled disabled = new HiddenObjectDisabled();
 
     public ExplanationManager explanationManager; 
     
-    public DrawerManager drawer;
     private string description;
     public string Description {
         get {
