@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -14,6 +11,16 @@ public class HiddenObjectManager : MonoBehaviour
     public ExplanationManager explanationManager; 
     
     public DrawerManager drawer;
+    private string description;
+    public string Description {
+        get {
+            return description;
+        }
+
+        set {
+            description = value;
+        }
+    }
 
     private int index;
     public int Index {
@@ -47,17 +54,15 @@ public class HiddenObjectManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Description = Resources.Load<TextAsset>(gameObject.name).text;
         currentState = idleState;
-
         currentState.EnterState(this);
-
     }
 
     // Update is called once per frame
     void Update()
     {
         currentState.UpdateState(this);
-
     }
 
     public void SwitchState(HiddenObjectBaseState state)

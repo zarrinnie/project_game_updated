@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,7 +10,18 @@ public class ExplanationManager : MonoBehaviour {
 
     public LevelUIManager levelUIManager;
     public Canvas canvas;
+    public TextMeshProUGUI content;
     public ClockManager clock;
+    private string[] descriptions;
+    public string[] Descriptions {
+        get {
+            return descriptions;
+        }
+
+        set {
+            descriptions = value;
+        }
+    }
 
     void Start(){
         canvas = gameObject.GetComponent<Canvas>();

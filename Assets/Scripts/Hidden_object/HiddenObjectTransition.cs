@@ -6,9 +6,6 @@ public class HiddenObjectTransition : HiddenObjectBaseState
 {
     public override void EnterState(HiddenObjectManager item)
     {
-        Debug.Log(item);
-        Debug.Log(item.drawer);
-
         item.StartCoroutine(jumpToDrawer(item, item.drawer.meshes[item.Index].transform.position));
     }
 
@@ -40,7 +37,9 @@ public class HiddenObjectTransition : HiddenObjectBaseState
             // explanation UI
             if (distance == middlePos && !item.Explained) yield return new WaitWhile(() =>
             {
-                if (!toggled){
+                if (!toggled)
+                {
+                    item.explanationManager.explaining.item = item;
                     item.explanationManager.SwitchState(item.explanationManager.explaining);
                     toggled = true;
 
