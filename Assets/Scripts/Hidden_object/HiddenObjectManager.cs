@@ -8,26 +8,23 @@ public class HiddenObjectManager : MonoBehaviour
     public HiddenObjectTransition transitionState = new HiddenObjectTransition();
     public HiddenObjectDisabled disabled = new HiddenObjectDisabled();
 
-    public ExplanationManager explanationManager; 
-    
-    private string description;
-    public string Description {
-        get {
-            return description;
-        }
+    public ExplanationManager explanationManager;
 
-        set {
-            description = value;
-        }
+    public string Description
+    {
+        get; private set;
     }
 
     private int index;
-    public int Index {
-        get {
+    public int Index
+    {
+        get
+        {
             return index;
         }
 
-        set {
+        set
+        {
             index = Index;
         }
     }
@@ -35,11 +32,13 @@ public class HiddenObjectManager : MonoBehaviour
     private bool hidden = true;
     public bool Hidden
     {
-        get {
+        get
+        {
             return hidden;
         }
 
-        set {
+        set
+        {
             hidden = value;
         }
     }

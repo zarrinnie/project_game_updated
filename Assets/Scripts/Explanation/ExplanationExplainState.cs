@@ -2,9 +2,7 @@
 using System;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 [Serializable]
 public class ExplanationExplainState : ExplanationBaseState
@@ -13,12 +11,21 @@ public class ExplanationExplainState : ExplanationBaseState
     private Animator speakerAnimator;
     [SerializeField]
     private TextMeshProUGUI content;
+    public TextMeshProUGUI Content {
+        get {
+            return content;
+        }
+
+        set {
+            content = value;
+        }
+    }
     [SerializeField]
     private float explanationSpeed = 0.05f;
     [SerializeField]
     private float extraDelayOnSpace = 1.0f;
-    private int maxVisibleChars;
-    private bool doneExplaining;
+    public int maxVisibleChars { get; set; }
+    public bool doneExplaining { get; private set; }
 
     public override void EnterState(ExplanationManager explanationMenu)
     {

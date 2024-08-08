@@ -12,7 +12,6 @@ public class ExplanationManager : MonoBehaviour {
     public Canvas canvas;
     public ClockManager clock;
     public DrawerManager drawer;
-    [NonSerialized]
     public HiddenObjectManager item;
     private string[] descriptions;
     public string[] Descriptions {
