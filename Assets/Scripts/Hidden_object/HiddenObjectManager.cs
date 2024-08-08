@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class HiddenObjectManager : MonoBehaviour
 {
     HiddenObjectBaseState currentState;
