@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ClockManager : MonoBehaviour
 {
     public ClockBaseState currentState;
-    public ClockBaseState lastState;
+    public ClockBaseState lastState = new ClockNormalState();
     public ClockNormalState normal = new ClockNormalState();
     public ClockUncalmState uncalm = new ClockUncalmState();
     public ClockAgitatedState agitated = new ClockAgitatedState();
@@ -73,9 +73,10 @@ public class ClockManager : MonoBehaviour
     }
 
     public void SwitchState(ClockBaseState state){
-        if(currentState == paused){
+        if(currentState != null && currentState == paused){
             StartCoroutine(UpdateClock());
         }
+
         currentState = state; 
         currentState.EnterState(this);
     }
