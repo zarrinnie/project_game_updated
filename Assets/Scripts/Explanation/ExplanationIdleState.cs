@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [Serializable]
@@ -14,9 +15,11 @@ public class ExplanationIdleState : ExplanationBaseState
         explanationMenu.clock.SwitchState(explanationMenu.clock.lastState);
 
         // Disable the item and re-enable the drawer
-        explanationMenu.item.SwitchState(explanationMenu.item.disabled);
+        if(explanationMenu.item != null){
+            explanationMenu.item.SwitchState(explanationMenu.item.disabled);
+            explanationMenu.item.Explained = true;
+        }
         explanationMenu.drawer.SwitchState(explanationMenu.drawer.idleState);
-        explanationMenu.item.Explained = true;
     }
 
     public override void UpdateState(ExplanationManager explanationMenu)
