@@ -45,7 +45,7 @@ public class ClockManager : MonoBehaviour
     // Called every exact second
     void FixedUpdate()
     {
-        clockText.SetText(timer.ToString());
+        clockText.SetText(timer.ToString(@"mm\:ss"));
     }
 
     // Coroutine that updates the clock
