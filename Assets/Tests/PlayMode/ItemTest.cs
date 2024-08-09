@@ -18,11 +18,10 @@ public class ItemTest
     public IEnumerator DiscoverItem()
     {
         HiddenObjectManager item = GameObject.Find("Barong mask").GetComponent<HiddenObjectManager>();
-        ExplanationManager explanation = GameObject.Find("Explanation_UI").GetComponent<ExplanationManager>();
+        ExplanationManager explanation = GameObject.Find("Explanation_canvas").GetComponent<ExplanationManager>();
         ClockManager clock = GameObject.Find("Clock_panel").GetComponent<ClockManager>();
 
         item.SwitchState(item.transitionState);
-        Debug.Log(explanation.item);
 
         Assert.AreEqual(item.currentState, item.transitionState);
 
