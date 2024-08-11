@@ -31,7 +31,7 @@ Material:
     m_Floats:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _OutlineSize: 9.2
+    - _OutlineSize: 0
     m_Colors:
     - _Bottom: {r: 0, g: 18, b: 0, a: 0}
     - _Left: {r: 0, g: -18, b: 0, a: 0}

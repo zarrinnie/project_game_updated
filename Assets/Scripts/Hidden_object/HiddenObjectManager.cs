@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -7,6 +8,7 @@ public class HiddenObjectManager : MonoBehaviour
     public HiddenObjectIdle idleState = new HiddenObjectIdle();
     public HiddenObjectTransition transitionState = new HiddenObjectTransition();
     public HiddenObjectDisabled disabled = new HiddenObjectDisabled();
+    public HiddenObjectHighlighted highlighted;
 
     public ExplanationManager explanationManager;
 

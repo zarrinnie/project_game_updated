@@ -22,6 +22,7 @@ public class HintPanelManager : MonoBehaviour
     public GameObject garudaBird;
     public Button hintButton;
     public AudioSource audioSource;
+    public HiddenObjectHighlighted hiddenObjectHighlighted = new HiddenObjectHighlighted();
     public int availableHints;
 
     void Start(){
@@ -42,11 +43,11 @@ public class HintPanelManager : MonoBehaviour
                 hintButton.interactable = false;
             }
 
-            StartCoroutine(showHint(drawer.hiddenObjects[randIndex].transform.position));
+            StartCoroutine(showHint(drawer.hiddenObjects[randIndex]));
         }
     }
 
-    public IEnumerator showHint(Vector3 itemPost)
+    public IEnumerator showHint(HiddenObjectManager itemPost)
     {
         hintButton.interactable = false;
         float t = 0;
@@ -56,12 +57,14 @@ public class HintPanelManager : MonoBehaviour
 
         while (t < 1)
         {
-            garudaBird.transform.position = Vector2.Lerp(garudaBird.transform.position, itemPost, t);
+            garudaBird.transform.position = Vector2.Lerp(garudaBird.transform.position, itemPost.transform.position, t);
             t = t + Time.deltaTime / timeToMove;
             yield return new WaitForEndOfFrame();
         }
 
-        garudaBird.transform.position = itemPost;
+        garudaBird.transform.position = itemPost.transform.position;
+        itemPost.highlighted = hiddenObjectHighlighted;
+        itemPost.SwitchState(hiddenObjectHighlighted);
         // yield return new WaitForSeconds(1);
 
         t = 0;
