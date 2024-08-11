@@ -5,7 +5,7 @@ public class HiddenObjectTransition : HiddenObjectBaseState
 {
     public override void EnterState(HiddenObjectManager item)
     {
-        item.StartCoroutine(jumpToDrawer(item, Camera.main.ScreenToWorldPoint(item.explanationManager.drawer.meshes[item.Index].transform.position)));
+        item.StartCoroutine(jumpToDrawer(item, item.explanationManager.drawer.meshes[item.Index].transform.position));
     }
 
     public override void UpdateState(HiddenObjectManager item)
