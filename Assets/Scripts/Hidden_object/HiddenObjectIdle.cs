@@ -7,7 +7,6 @@ public class HiddenObjectIdle: HiddenObjectBaseState
 {
     public override void EnterState(HiddenObjectManager item)
     {
-        item.gameObject.AddComponent<BoxCollider2D>();
     }
 
     public override void UpdateState(HiddenObjectManager item)
