@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class HiddenObjectManager : MonoBehaviour
     public HiddenObjectHighlighted highlighted;
 
     public ExplanationManager explanationManager;
+
+    public int id;
 
     public string Description
     {
@@ -50,11 +53,16 @@ public class HiddenObjectManager : MonoBehaviour
         get; set;
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
-        Description = Resources.Load<TextAsset>(gameObject.name).text;
+        TextAsset descriptionAsset = Resources.Load<TextAsset>(gameObject.name);
+        if(descriptionAsset == null){
+            Debug.LogError(string.Format("Please make a description asset named {} in the Resources folder", name));
+        } else {
+            Description = descriptionAsset.text;
+        }
+
         currentState = idleState;
         currentState.EnterState(this);
     }
