@@ -16,8 +16,17 @@ public class LoadState : SaveDataBaseState
         }
         else
         {
-            saveManager.save = JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(saveManager.SaveDataPath)); 
-            Debug.Log(saveManager.save);
+            // The save data from the savefile
+            SaveData newSaveData = JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(saveManager.SaveDataPath));
+            // The deserialized hidden objects
+            List<SerializedHiddenObject> deserializedHiddenObjects = newSaveData.serializedHiddenObjects;
+            
+            for(int i = 0; i < deserializedHiddenObjects.Count; i++){
+                // The two deserialized hidden objects have the same id
+                if(deserializedHiddenObjects[i].id == saveManager.save.serializedHiddenObjects[i].id){
+                    deserializedHiddenObjects[i].sprite = saveManager.save.serializedHiddenObjects[i].sprite;
+                }
+            }
         }
     }
 
