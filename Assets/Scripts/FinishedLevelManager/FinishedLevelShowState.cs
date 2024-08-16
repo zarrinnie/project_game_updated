@@ -1,7 +1,11 @@
-using UnityEngine.SceneManagement;
+using System;
+using UnityEngine;
 
+[Serializable]
 public class FinishedLevelShowState : FinishedLevelBaseState
 {
+    [SerializeField]
+    private SaveDataManager saveDataManager;
     public override void EnterState(FinishedLevelManager finishedLevelManager)
     {
         finishedLevelManager.canvas.enabled = true;
@@ -9,13 +13,5 @@ public class FinishedLevelShowState : FinishedLevelBaseState
 
     public override void UpdateState(FinishedLevelManager finishedLevelManager)
     {
-    }
-
-    public void ToMainMenu(){
-        SceneManager.LoadScene("Main_menu");
-    }
-
-    public void Retry(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
