@@ -62,9 +62,6 @@ public class ClockManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-        // Stop the moment the timer is done
-        // And swap state
-        SceneManager.LoadScene(0);
         yield break;
     }
 

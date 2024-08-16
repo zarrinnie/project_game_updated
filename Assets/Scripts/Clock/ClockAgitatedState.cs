@@ -1,7 +1,11 @@
-using UnityEngine.SceneManagement;
+using System;
+using UnityEngine;
 
+[Serializable]
 public class ClockAgitatedState : ClockBaseState
 {
+    [SerializeField]
+    private FinishedLevelManager finishedLevelManager;
     public override void EnterState(ClockManager clock)
     {
         clock.clockSprite = clock.clockStates[2].StateSprite;
@@ -10,5 +14,8 @@ public class ClockAgitatedState : ClockBaseState
 
     public override void UpdateState(ClockManager clock)
     {
+        if(clock.timer.TotalSeconds == 0){
+            finishedLevelManager.SwitchState(finishedLevelManager.shown);
+        }
     }
 }
