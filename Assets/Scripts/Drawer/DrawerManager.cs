@@ -7,6 +7,7 @@ public class DrawerManager : MonoBehaviour {
     public DrawerBlurState blurState = new DrawerBlurState();
 
     public HiddenObjectManager[] hiddenObjects;
+    public FinishedLevelManager finishedLevelManager;
     public GameObject textLabelPrefab;
     public TextMeshProUGUI[] meshes;
 

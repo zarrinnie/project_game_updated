@@ -1,10 +1,13 @@
-using UnityEngine;
-using TMPro;
+using System.Collections.Generic;
+using System.Linq;
 
 public class DrawerIdleState : DrawerBaseState
 {
     public override void EnterState(DrawerManager drawer)
     {
+        if(drawer.hiddenObjects.Count(hiddenObject => !hiddenObject.Hidden) == drawer.hiddenObjects.Length){
+            drawer.finishedLevelManager.SwitchState(drawer.finishedLevelManager.shown);
+        } 
     }
 
     public override void UpdateState(DrawerManager drawer)
@@ -14,5 +17,6 @@ public class DrawerIdleState : DrawerBaseState
                 drawer.meshes[i].SetText(string.Format("<s>{0}</s>", drawer.meshes[i].text));
             }
         }
+
     }
 }
