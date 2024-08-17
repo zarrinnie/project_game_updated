@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
+using Core;
 using Newtonsoft.Json;
 using UnityEditor.Scripting;
 using UnityEngine;
 
-public class LoadState : SaveDataBaseState
+public class LoadState : State<SaveDataManager>
 {
     public override void EnterState(SaveDataManager saveManager)
     {

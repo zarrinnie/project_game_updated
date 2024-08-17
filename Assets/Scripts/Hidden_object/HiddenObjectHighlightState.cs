@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
+using Core;
 using UnityEngine;
 
 [Serializable]
-public class HiddenObjectHighlighted : HiddenObjectBaseState
+public class HiddenObjectHighlighted : State<HiddenObjectManager>
 {
     public Material defaultMat;
     public Material highlightMat;

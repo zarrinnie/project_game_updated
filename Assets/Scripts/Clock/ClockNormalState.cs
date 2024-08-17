@@ -1,7 +1,8 @@
+using Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClockNormalState : ClockBaseState
+public class ClockNormalState : State<ClockManager>
 {
     private int index = 0;
     public override void EnterState(ClockManager clock)

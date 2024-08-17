@@ -1,8 +1,9 @@
 using System;
+using Core;
 using UnityEngine;
 
 [Serializable]
-public class ClockAgitatedState : ClockBaseState
+public class ClockAgitatedState : State<ClockManager> 
 {
     [SerializeField]
     private FinishedLevelManager finishedLevelManager;

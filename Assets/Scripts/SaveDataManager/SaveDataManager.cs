@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -8,7 +9,7 @@ using UnityEngine.Android;
 
 public class SaveDataManager : MonoBehaviour
 {
-    public SaveDataBaseState current;
+    public State<SaveDataManager> current;
     public LoadState loading = new LoadState();
     public SavingState saving = new SavingState();
     public string SaveDataPath { get; private set; }
@@ -28,7 +29,7 @@ public class SaveDataManager : MonoBehaviour
         current.UpdateState(this);
     }
 
-    public void SwitchState(SaveDataBaseState state){
+    public void SwitchState(State<SaveDataManager> state){
         current = state; 
         state.EnterState(this);
     }

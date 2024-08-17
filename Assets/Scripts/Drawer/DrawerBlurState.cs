@@ -1,6 +1,7 @@
+using Core;
 using UnityEngine;
 
-public class DrawerBlurState : DrawerBaseState
+public class DrawerBlurState : State<DrawerManager>
 {
     public override void EnterState(DrawerManager drawer)
     {

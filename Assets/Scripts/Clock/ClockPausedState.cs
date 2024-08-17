@@ -1,6 +1,7 @@
+using Core;
 using UnityEngine;
 
-public class ClockPausedState : ClockBaseState
+public class ClockPausedState : State<ClockManager>
 {
     public override void EnterState(ClockManager clock)
     {

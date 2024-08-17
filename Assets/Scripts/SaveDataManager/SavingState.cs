@@ -1,8 +1,9 @@
 using System.IO;
+using Core;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class SavingState : SaveDataBaseState
+public class SavingState : State<SaveDataManager>
 {
     public DrawerManager drawer;
     public override void EnterState(SaveDataManager manager)

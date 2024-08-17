@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using Core;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class HiddenObjectManager : MonoBehaviour
 {
-    public HiddenObjectBaseState currentState;
+    public State<HiddenObjectManager> currentState;
     public HiddenObjectIdle idleState = new HiddenObjectIdle();
     public HiddenObjectTransition transitionState = new HiddenObjectTransition();
     public HiddenObjectDisabled disabled = new HiddenObjectDisabled();
@@ -73,7 +74,7 @@ public class HiddenObjectManager : MonoBehaviour
         currentState.UpdateState(this);
     }
 
-    public void SwitchState(HiddenObjectBaseState state)
+    public void SwitchState(State<HiddenObjectManager> state)
     {
         currentState = state;
         currentState.EnterState(this);

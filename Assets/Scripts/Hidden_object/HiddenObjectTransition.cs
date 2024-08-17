@@ -1,7 +1,8 @@
 using System.Collections;
+using Core;
 using UnityEngine;
 
-public class HiddenObjectTransition : HiddenObjectBaseState
+public class HiddenObjectTransition : State<HiddenObjectManager>
 {
     public override void EnterState(HiddenObjectManager item)
     {

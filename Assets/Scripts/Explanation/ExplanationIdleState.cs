@@ -1,9 +1,8 @@
 using System;
-using JetBrains.Annotations;
-using UnityEngine;
+using Core;
 
 [Serializable]
-public class ExplanationIdleState : ExplanationBaseState
+public class ExplanationIdleState : State<ExplanationManager>
 {
     public override void EnterState(ExplanationManager explanationMenu)
     {

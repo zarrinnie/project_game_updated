@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class FinishedLevelManager : MonoBehaviour
 {
-    public FinishedLevelBaseState current;
+    public State<FinishedLevelManager> current;
     public FinishedLevelIdleState idle = new FinishedLevelIdleState();
     public FinishedLevelShowState shown = new FinishedLevelShowState();
     public Canvas canvas;
@@ -23,7 +24,7 @@ public class FinishedLevelManager : MonoBehaviour
         current.UpdateState(this);
     }
 
-    public void SwitchState(FinishedLevelBaseState state){
+    public void SwitchState(State<FinishedLevelManager> state){
         current = state;
         current.EnterState(this);
     }

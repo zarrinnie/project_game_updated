@@ -1,6 +1,7 @@
+using Core;
 using UnityEngine;
 
-public class HiddenObjectDisabled: HiddenObjectBaseState {
+public class HiddenObjectDisabled: State<HiddenObjectManager> {
     public override void EnterState(HiddenObjectManager item)
     {
         Debug.Log("Disabiling obj");

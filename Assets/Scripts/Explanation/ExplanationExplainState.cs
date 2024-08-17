@@ -1,11 +1,11 @@
-
 using System;
 using System.Collections;
+using Core;
 using TMPro;
 using UnityEngine;
 
 [Serializable]
-public class ExplanationExplainState : ExplanationBaseState
+public class ExplanationExplainState : State<ExplanationManager>
 {
     [SerializeField]
     private Animator speakerAnimator;

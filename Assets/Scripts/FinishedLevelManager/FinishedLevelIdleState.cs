@@ -1,6 +1,7 @@
+using Core;
 using UnityEngine;
 
-public class FinishedLevelIdleState : FinishedLevelBaseState
+public class FinishedLevelIdleState : State<FinishedLevelManager>
 {
     public override void EnterState(FinishedLevelManager finishedLevelManager)
     {

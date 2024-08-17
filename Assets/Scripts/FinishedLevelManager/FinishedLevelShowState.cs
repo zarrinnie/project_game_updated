@@ -1,8 +1,9 @@
 using System;
+using Core;
 using UnityEngine;
 
 [Serializable]
-public class FinishedLevelShowState : FinishedLevelBaseState
+public class FinishedLevelShowState : State<FinishedLevelManager>
 {
     private SaveDataManager saveDataManager;
     [SerializeField]

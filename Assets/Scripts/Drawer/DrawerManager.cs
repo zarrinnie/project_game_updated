@@ -1,8 +1,9 @@
+using Core;
 using TMPro;
 using UnityEngine;
 
 public class DrawerManager : MonoBehaviour {
-    public DrawerBaseState currentState;
+    public State<DrawerManager> currentState;
     public DrawerIdleState idleState = new DrawerIdleState();
     public DrawerBlurState blurState = new DrawerBlurState();
 
@@ -33,7 +34,7 @@ public class DrawerManager : MonoBehaviour {
         currentState.UpdateState(this);
     }
 
-    public void SwitchState(DrawerBaseState state){
+    public void SwitchState(State<DrawerManager> state){
         currentState = state;
         currentState.EnterState(this);
     }

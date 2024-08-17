@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core;
 
-public class DrawerIdleState : DrawerBaseState
+public class DrawerIdleState : State<DrawerManager>
 {
     public override void EnterState(DrawerManager drawer)
     {
