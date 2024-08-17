@@ -22,11 +22,14 @@ public class LoadState : SaveDataBaseState
             List<SerializedHiddenObject> deserializedHiddenObjects = newSaveData.serializedHiddenObjects;
             
             for(int i = 0; i < deserializedHiddenObjects.Count; i++){
+                Debug.Log(deserializedHiddenObjects[i].found);
                 // The two deserialized hidden objects have the same id
                 if(deserializedHiddenObjects[i].id == saveManager.save.serializedHiddenObjects[i].id){
                     deserializedHiddenObjects[i].sprite = saveManager.save.serializedHiddenObjects[i].sprite;
                 }
             }
+
+            saveManager.save = newSaveData;
         }
     }
 

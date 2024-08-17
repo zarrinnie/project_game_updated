@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class SaveDataManager : MonoBehaviour
 
     void Awake(){
         SaveDataPath = Application.persistentDataPath + "/savefile.json";
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start(){
@@ -48,7 +49,7 @@ public class SaveData {
 
     public override string ToString()
     {
-        return string.Format("Savefile with date {0}, and Hidden objects {1}", TimeSaved, serializedHiddenObjects);
+        return string.Format("Savefile with date {0}, and Hidden objects {1}", TimeSaved, serializedHiddenObjects.ToString());
     }
 }
 
@@ -59,5 +60,10 @@ public class SerializedHiddenObject {
     public Sprite sprite;
     [JsonProperty]
     public bool found {set; get;} = false;
+
+    public override string ToString()
+    {
+        return "Serialized hiddne object with id " + id + (found ? "has been found" : "Not yet found");
+    }
 }
 

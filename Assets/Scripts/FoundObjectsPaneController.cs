@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class FoundObjectsPaneController : MonoBehaviour
 {
-    [SerializeField]
     private SaveDataManager saveDataManager;
     [SerializeField]
     private GameObject foundObjectPanePrefab;
@@ -12,6 +11,7 @@ public class FoundObjectsPaneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        saveDataManager = GameObject.Find("SaveDataManager").GetComponent<SaveDataManager>();
         foreach(SerializedHiddenObject hiddenObject in saveDataManager.save.serializedHiddenObjects){
             GameObject instantiatedPane = Instantiate(foundObjectPanePrefab, transform);
             instantiatedPane.transform.GetChild(0).GetComponent<Image>().sprite = hiddenObject.sprite;
