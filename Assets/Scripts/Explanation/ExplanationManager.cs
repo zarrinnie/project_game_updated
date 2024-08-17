@@ -10,16 +10,9 @@ public class ExplanationManager : MonoBehaviour {
     public ClockManager clock;
     public DrawerManager drawer;
     public HiddenObjectManager item;
-    private string[] descriptions;
-    public string[] Descriptions {
-        get {
-            return descriptions;
-        }
-
-        set {
-            descriptions = value;
-        }
-    }
+    public string AltDesc { get; set; }
+    
+    public bool isMainMenu { get; set; }
 
     void Start(){
         canvas = gameObject.GetComponent<Canvas>();

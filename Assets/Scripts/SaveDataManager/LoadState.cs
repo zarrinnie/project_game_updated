@@ -27,6 +27,7 @@ public class LoadState : State<SaveDataManager>
                 // The two deserialized hidden objects have the same id
                 if(deserializedHiddenObjects[i].id == saveManager.save.serializedHiddenObjects[i].id){
                     deserializedHiddenObjects[i].sprite = saveManager.save.serializedHiddenObjects[i].sprite;
+                    deserializedHiddenObjects[i].name = saveManager.save.serializedHiddenObjects[i].name;
                 }
             }
 

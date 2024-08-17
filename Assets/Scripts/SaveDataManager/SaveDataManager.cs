@@ -59,6 +59,8 @@ public class SerializedHiddenObject {
     public int id; 
     [JsonIgnore]
     public Sprite sprite;
+    [JsonIgnore]
+    public string name;
     [JsonProperty]
     public bool found {set; get;} = false;
 
