@@ -4,6 +4,7 @@ using Core;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Animator))]
 public class HiddenObjectManager : MonoBehaviour
 {
     public State<HiddenObjectManager> currentState;
