@@ -10,6 +10,8 @@ public class ExplanationExplainState : State<ExplanationManager>
     [SerializeField]
     private Animator speakerAnimator;
     [SerializeField]
+    private Animator scrollbarAnimator;
+    [SerializeField]
     private TextMeshProUGUI content;
     public TextMeshProUGUI Content
     {
@@ -51,12 +53,18 @@ public class ExplanationExplainState : State<ExplanationManager>
         {
             explanationMenu.StopAllCoroutines();
             content.maxVisibleCharacters = explanationMenu.isMainMenu ? explanationMenu.AltDesc.Length : explanationMenu.item.Description.Length;
+            maxVisibleChars = content.maxVisibleCharacters + 1;
             doneExplaining = true;
         }
         else if (doneExplaining && Input.GetKeyDown(KeyCode.Escape))
         {
             // Pressed escape and done explaining
             explanationMenu.SwitchState(explanationMenu.idle);
+        }
+
+        if(doneExplaining){
+            Debug.Log("Show");
+            scrollbarAnimator.SetBool("Appear", true);
         }
     }
 
@@ -71,12 +79,12 @@ public class ExplanationExplainState : State<ExplanationManager>
             // The current character is a space
             if (content.textInfo.characterInfo[maxVisibleChars].character == ' ')
             {
-                speakerAnimator.Play("Talking");
+                speakerAnimator.Play("Idle");
                 yield return new WaitForSeconds(explanationSpeed + extraDelayOnSpace);
             }
             else
             {
-                speakerAnimator.Play("Idle");
+                speakerAnimator.Play("Talking");
                 yield return new WaitForSeconds(explanationSpeed);
             }
         }
