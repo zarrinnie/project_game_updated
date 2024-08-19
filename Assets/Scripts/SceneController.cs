@@ -10,21 +10,17 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        uiContainers[2].SetActive(true);
     }
 
-    // Called when pressing on quit 
-    public void Quit(){
-        Application.Quit();
-    }
-
-    // Called when pressing the start button
-    public void ToMainMenu()
-    {
+    public void ToTitleScreen(){
         SceneManager.LoadScene("Title_screen");
     }
 
-    public void ShowThing(int index){
-        foreach(GameObject ui in uiContainers){
+    public void ShowThing(int index)
+    {
+        foreach (GameObject ui in uiContainers)
+        {
             ui.SetActive(false);
         }
 
