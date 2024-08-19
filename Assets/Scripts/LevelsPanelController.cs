@@ -8,18 +8,28 @@ using UnityEngine.UI;
 
 public class LevelPanelController : MonoBehaviour
 {
-    public List<Level> Levels;
     public GameObject levelPanelPrefab;
+    private SaveDataManager saveDataManager;
+    public List<Level> levels;
     // Start is called before the first frame update
     void Start()
     {
-        Levels.ForEach(level =>
+        saveDataManager = GameObject.Find("SaveDataManager").GetComponent<SaveDataManager>();
+
+        saveDataManager.save.unlockedLevels.ForEach(level =>
         {
             GameObject instantiatedLevelPanel = Instantiate(levelPanelPrefab, transform);
-            instantiatedLevelPanel.name = "Level " + level.Index;
+            Button instantiatedPlayButton = instantiatedLevelPanel.transform.GetChild(1).GetChild(1).GetComponent<Button>();
+            instantiatedLevelPanel.name = level.levelName;
 
             instantiatedLevelPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(instantiatedLevelPanel.name);
-            instantiatedLevelPanel.transform.GetChild(1).GetChild(1).GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("Level_UI"));
+            instantiatedPlayButton.onClick.AddListener(() => SceneManager.LoadScene(level.buildIndex));
+
+            if (!level.unlocked)
+            {
+                instantiatedLevelPanel.transform.GetChild(2).gameObject.SetActive(true);
+                instantiatedPlayButton.enabled = false;
+            }
         });
     }
 
@@ -28,12 +38,4 @@ public class LevelPanelController : MonoBehaviour
     {
 
     }
-}
-
-[Serializable]
-public class Level
-{
-    [SerializeField]
-    private int index;
-    public int Index { get { return index; } set { index = value; } }
 }

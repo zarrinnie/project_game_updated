@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.IO;
 using Core;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SavingState : State<SaveDataManager>
 {
@@ -16,6 +18,9 @@ public class SavingState : State<SaveDataManager>
                 currentDeserializedObject.found = hiddenObjectToCompare.Explained;
             }
         }
+
+        manager.save.UnlockLevel(SceneManager.GetActiveScene().buildIndex);
+
         Debug.Log(JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(manager.SaveDataPath)));
         File.WriteAllText(manager.SaveDataPath, JsonConvert.SerializeObject(manager.save));
 

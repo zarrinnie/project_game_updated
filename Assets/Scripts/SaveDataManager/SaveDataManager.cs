@@ -5,7 +5,6 @@ using Core;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Android;
 
 public class SaveDataManager : MonoBehaviour
 {
@@ -40,6 +39,7 @@ public class SaveData {
     public DateTime TimeSaved = DateTime.Now;
 
     public List<SerializedHiddenObject> serializedHiddenObjects;
+    public List<Level> unlockedLevels;
     public SaveData(){
         serializedHiddenObjects = new List<SerializedHiddenObject>();
     }
@@ -48,10 +48,44 @@ public class SaveData {
         this.serializedHiddenObjects = serializedHiddenObjects;
     }
 
+    public void UnlockLevel(int buildIndex){
+        Level lastLevel = unlockedLevels.Last();
+
+        for(int i = 0; i < unlockedLevels.Count; i++){
+            Level current = unlockedLevels[i];
+            if(current.buildIndex == buildIndex){
+                if(current.Equals(lastLevel)){
+                    current.unlocked = true;
+                } else {
+                    unlockedLevels[i + 1].unlocked = true;
+                }
+            }
+        }
+    }
+
     public override string ToString()
     {
         return string.Format("Savefile with date {0}, and Hidden objects {1}", TimeSaved, serializedHiddenObjects.ToString());
     }
+}
+
+[Serializable]
+public class Level {
+    public int buildIndex;
+    [JsonIgnore]
+    public string levelName;
+    [JsonProperty]
+    public bool unlocked { get; set; }
+
+    public Level Unlock(){
+        return new Level(this.buildIndex, true);
+    }
+
+    public Level(int buildIndex, bool unlocked){
+        this.buildIndex = buildIndex; 
+        this.unlocked = unlocked;
+    }
+
 }
 
 [Serializable]
@@ -66,7 +100,7 @@ public class SerializedHiddenObject {
 
     public override string ToString()
     {
-        return "Serialized hiddne object with id " + id + (found ? "has been found" : "Not yet found");
+        return "Serialized hidden object with id " + id + (found ? "has been found" : "Not yet found");
     }
 }
 

@@ -28,6 +28,7 @@ public class FoundObjectsPaneController : MonoBehaviour
 
             if(!hiddenObject.found){
                 foundImage.GetComponent<Image>().material = notFoundMaterial; 
+                instantiatedPane.GetComponent<Button>().enabled = false;
             }
         }
     }

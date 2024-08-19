@@ -13,7 +13,7 @@ public class LoadState : State<SaveDataManager>
         Debug.Log(saveManager.SaveDataPath);
         if (!File.Exists(saveManager.SaveDataPath))
         {
-            File.WriteAllText(saveManager.SaveDataPath, JsonConvert.SerializeObject(saveManager.save, Formatting.Indented)); 
+            File.WriteAllText(saveManager.SaveDataPath, JsonConvert.SerializeObject(saveManager.save, Formatting.Indented));
         }
         else
         {
@@ -21,13 +21,24 @@ public class LoadState : State<SaveDataManager>
             SaveData newSaveData = JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(saveManager.SaveDataPath));
             // The deserialized hidden objects
             List<SerializedHiddenObject> deserializedHiddenObjects = newSaveData.serializedHiddenObjects;
-            
-            for(int i = 0; i < deserializedHiddenObjects.Count; i++){
+            List<Level> deserializedLevels = newSaveData.unlockedLevels;
+
+            for (int i = 0; i < deserializedHiddenObjects.Count; i++)
+            {
                 Debug.Log(deserializedHiddenObjects[i].found);
                 // The two deserialized hidden objects have the same id
-                if(deserializedHiddenObjects[i].id == saveManager.save.serializedHiddenObjects[i].id){
+                if (deserializedHiddenObjects[i].id == saveManager.save.serializedHiddenObjects[i].id)
+                {
                     deserializedHiddenObjects[i].sprite = saveManager.save.serializedHiddenObjects[i].sprite;
                     deserializedHiddenObjects[i].name = saveManager.save.serializedHiddenObjects[i].name;
+                }
+            }
+
+            for (int i = 0; i < deserializedLevels.Count; i++)
+            {
+                if (deserializedLevels[i].buildIndex == saveManager.save.unlockedLevels[i].buildIndex)
+                {
+                    deserializedLevels[i].levelName = saveManager.save.unlockedLevels[i].levelName;
                 }
             }
 
