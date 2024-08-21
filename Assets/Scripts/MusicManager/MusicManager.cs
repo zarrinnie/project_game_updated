@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Linq;
 using System;
 using Core;
 using TMPro;
-using System.Threading.Tasks;
 using UnityEngine.UI;
 
 [Serializable]
@@ -51,15 +49,20 @@ public class MusicManager : MonoBehaviour
 
     public void SetAlpha(float alpha)
     {
-        textMeshes.ForEach(textMesh =>
-        {
-            textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, alpha);
-        });
+        if (textMeshes.Any(textMesh => textMesh == null) && buttons.Any(button => button == null)){
+            return;
 
-        buttons.ForEach(button =>
-        {
-            Image currentImage = button.GetComponent<Image>();
-            currentImage.color = new Color(currentImage.color.r, currentImage.color.g, currentImage.color.b, alpha);
-        });
+        } else {
+            textMeshes.ForEach(textMesh =>
+            {
+                textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, alpha);
+            });
+
+            buttons.ForEach(button =>
+            {
+                Image currentImage = button.GetComponent<Image>();
+                currentImage.color = new Color(currentImage.color.r, currentImage.color.g, currentImage.color.b, alpha);
+            });
+        }
     }
 }
