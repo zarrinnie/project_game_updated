@@ -1,4 +1,6 @@
-public class ClockUncalmState : ClockBaseState
+using Core;
+
+public class ClockUncalmState : State<ClockManager>
 {
     public override void EnterState(ClockManager clock)
     {

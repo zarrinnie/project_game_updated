@@ -1,28 +1,18 @@
-using System;
-using TMPro;
-using Unity.VisualScripting;
+using Core;
 using UnityEngine;
 
 public class ExplanationManager : MonoBehaviour {
-    public ExplanationBaseState currentState;
+    public State<ExplanationManager> currentState;
     public ExplanationIdleState idle = new ExplanationIdleState();
     public ExplanationExplainState explaining = new ExplanationExplainState();
 
-    public LevelUIManager levelUIManager;
     public Canvas canvas;
     public ClockManager clock;
     public DrawerManager drawer;
     public HiddenObjectManager item;
-    private string[] descriptions;
-    public string[] Descriptions {
-        get {
-            return descriptions;
-        }
-
-        set {
-            descriptions = value;
-        }
-    }
+    public string AltDesc { get; set; }
+    
+    public bool isMainMenu { get; set; }
 
     void Start(){
         canvas = gameObject.GetComponent<Canvas>();
@@ -35,7 +25,7 @@ public class ExplanationManager : MonoBehaviour {
         currentState.UpdateState(this);
     }
 
-    public void SwitchState(ExplanationBaseState state){
+    public void SwitchState(State<ExplanationManager> state){
         currentState = state;
         currentState.EnterState(this);
     }

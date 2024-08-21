@@ -1,19 +1,11 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
-public class ClockTest
+public class ClockTest : LevelTest
 {
-    [OneTimeSetUp]
-    public void LoadTestScene(){
-        SceneManager.LoadScene("Level_UI");
-    }
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
     [UnityTest]
     public IEnumerator ClockChangesEverySecond()
     {
@@ -38,12 +30,24 @@ public class ClockTest
     }
 
     [UnityTest]
-    public IEnumerator SwitchSceneEndOfClock(){
+    public IEnumerator ShowFinishedLevelMenu(){
         ClockManager clock = GameObject.Find("Clock_panel").GetComponent<ClockManager>();
-        clock.SwitchState(clock.normal);
-        clock.timePassed = 301;
-        yield return new WaitForSeconds(5);
+        FinishedLevelManager finishedLevelManager = GameObject.Find("FinishedLevel_canvas").GetComponent<FinishedLevelManager>();
 
-        Assert.AreEqual(0, SceneManager.GetActiveScene().buildIndex);
+        clock.SwitchState(clock.normal);
+        clock.timer = clock.clockStates[0].SpanLimit - TimeSpan.FromSeconds(1);
+        yield return new WaitForSeconds(1);
+
+        Assert.AreEqual(clock.currentState, clock.uncalm);
+
+        clock.timer = clock.clockStates[1].SpanLimit - TimeSpan.FromSeconds(1);
+
+        yield return new WaitForSeconds(1);
+        Assert.AreEqual(clock.currentState, clock.agitated);
+
+        clock.timer = TimeSpan.Zero;
+        yield return new WaitForSeconds(1);
+
+        Assert.AreEqual(finishedLevelManager.shown, finishedLevelManager.current);
     }
 }

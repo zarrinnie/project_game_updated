@@ -24,6 +24,7 @@ public class HintPanelManager : MonoBehaviour
     public AudioSource audioSource;
     public HiddenObjectHighlighted hiddenObjectHighlighted = new HiddenObjectHighlighted();
     public int availableHints;
+    public int randIndex;
 
     void Start(){
 
@@ -37,7 +38,7 @@ public class HintPanelManager : MonoBehaviour
         if (availableHints != 0)
         {
             availableHints -= 1;
-            int randIndex = Random.Range(0, drawer.hiddenObjects.Length);
+            randIndex = Random.Range(0, drawer.hiddenObjects.Length);
 
             if(availableHints == 0){
                 hintButton.interactable = false;

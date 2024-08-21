@@ -1,22 +1,27 @@
-
 using System;
 using System.Collections;
+using Core;
 using TMPro;
 using UnityEngine;
 
 [Serializable]
-public class ExplanationExplainState : ExplanationBaseState
+public class ExplanationExplainState : State<ExplanationManager>
 {
     [SerializeField]
     private Animator speakerAnimator;
     [SerializeField]
+    private Animator scrollbarAnimator;
+    [SerializeField]
     private TextMeshProUGUI content;
-    public TextMeshProUGUI Content {
-        get {
+    public TextMeshProUGUI Content
+    {
+        get
+        {
             return content;
         }
 
-        set {
+        set
+        {
             content = value;
         }
     }
@@ -30,29 +35,43 @@ public class ExplanationExplainState : ExplanationBaseState
     public override void EnterState(ExplanationManager explanationMenu)
     {
         explanationMenu.canvas.enabled = true;
-        explanationMenu.clock.SwitchState(explanationMenu.clock.paused);
-
-        content.SetText(explanationMenu.item.Description);
-
+        if (!explanationMenu.isMainMenu)
+        {
+            content.SetText(explanationMenu.item.Description);
+            explanationMenu.clock.SwitchState(explanationMenu.clock.paused);
+        } else {
+            content.SetText(explanationMenu.AltDesc);
+        }
         explanationMenu.StartCoroutine(TypeWrite(explanationMenu));
+
     }
 
     public override void UpdateState(ExplanationManager explanationMenu)
     {
         // Pressed escape and not yet done explaining
-        if(Input.GetKeyDown(KeyCode.Escape) && !doneExplaining){
+        if (Input.GetKeyDown(KeyCode.Escape) && !doneExplaining)
+        {
             explanationMenu.StopAllCoroutines();
-            content.maxVisibleCharacters = explanationMenu.item.Description.Length;
+            content.maxVisibleCharacters = explanationMenu.isMainMenu ? explanationMenu.AltDesc.Length : explanationMenu.item.Description.Length;
+            maxVisibleChars = content.maxVisibleCharacters + 1;
             doneExplaining = true;
-        } else if(doneExplaining && Input.GetKeyDown(KeyCode.Escape)){
+        }
+        else if (doneExplaining && Input.GetKeyDown(KeyCode.Escape))
+        {
             // Pressed escape and done explaining
             explanationMenu.SwitchState(explanationMenu.idle);
+        }
+
+        if(doneExplaining){
+            Debug.Log("Show");
+            scrollbarAnimator.SetBool("Appear", true);
         }
     }
 
     public IEnumerator TypeWrite(ExplanationManager explanationMenu)
     {
-        while (maxVisibleChars < explanationMenu.item.Description.Length)
+        int remaining = explanationMenu.isMainMenu ? explanationMenu.AltDesc.Length : explanationMenu.item.Description.Length;
+        while (maxVisibleChars < remaining)
         {
             maxVisibleChars += 1;
             content.maxVisibleCharacters = maxVisibleChars;
@@ -60,12 +79,12 @@ public class ExplanationExplainState : ExplanationBaseState
             // The current character is a space
             if (content.textInfo.characterInfo[maxVisibleChars].character == ' ')
             {
-                speakerAnimator.Play("Talking");
+                speakerAnimator.Play("Idle");
                 yield return new WaitForSeconds(explanationSpeed + extraDelayOnSpace);
             }
             else
             {
-                speakerAnimator.Play("Idle");
+                speakerAnimator.Play("Talking");
                 yield return new WaitForSeconds(explanationSpeed);
             }
         }

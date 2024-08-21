@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,8 +8,8 @@ using UnityEngine.UI;
 
 public class ClockManager : MonoBehaviour
 {
-    public ClockBaseState currentState;
-    public ClockBaseState lastState = new ClockNormalState();
+    public State<ClockManager> currentState;
+    public State<ClockManager> lastState = new ClockNormalState();
     public ClockNormalState normal = new ClockNormalState();
     public ClockUncalmState uncalm = new ClockUncalmState();
     public ClockAgitatedState agitated = new ClockAgitatedState();
@@ -62,9 +63,6 @@ public class ClockManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-        // Stop the moment the timer is done
-        // And swap state
-        SceneManager.LoadScene(0);
         yield break;
     }
 
@@ -72,7 +70,7 @@ public class ClockManager : MonoBehaviour
         return timer < clockStates[limitIndex].SpanLimit;
     }
 
-    public void SwitchState(ClockBaseState state){
+    public void SwitchState(State<ClockManager> state){
         if(currentState != null && currentState == paused){
             StartCoroutine(UpdateClock());
         }
