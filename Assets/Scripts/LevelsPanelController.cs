@@ -8,9 +8,14 @@ using UnityEngine.UI;
 
 public class LevelPanelController : MonoBehaviour
 {
-    public GameObject levelPanelPrefab;
+    [SerializeField]
+    private GameObject levelPanelPrefab;
     private SaveDataManager saveDataManager;
-    public List<Level> levels;
+    [SerializeField]
+    private Sprite lockSprite;
+    [SerializeField]
+    private Color lockColor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +24,10 @@ public class LevelPanelController : MonoBehaviour
         saveDataManager.save.unlockedLevels.ForEach(level =>
         {
             GameObject instantiatedLevelPanel = Instantiate(levelPanelPrefab, transform);
+            Image instantiatedImage = instantiatedLevelPanel.transform.GetChild(2).GetComponent<Image>();
             Button instantiatedPlayButton = instantiatedLevelPanel.transform.GetChild(1).GetChild(1).GetComponent<Button>();
+
+            // The name of the level
             instantiatedLevelPanel.name = level.levelName;
 
             instantiatedLevelPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(instantiatedLevelPanel.name);
@@ -28,14 +36,10 @@ public class LevelPanelController : MonoBehaviour
             if (!level.unlocked)
             {
                 instantiatedLevelPanel.transform.GetChild(2).gameObject.SetActive(true);
+                instantiatedImage.sprite = lockSprite; 
+                instantiatedImage.color = lockColor;
                 instantiatedPlayButton.enabled = false;
             }
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
