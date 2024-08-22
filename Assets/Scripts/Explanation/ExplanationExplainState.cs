@@ -3,6 +3,7 @@ using System.Collections;
 using Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class ExplanationExplainState : State<ExplanationManager>
@@ -29,12 +30,15 @@ public class ExplanationExplainState : State<ExplanationManager>
     private float explanationSpeed = 0.05f;
     [SerializeField]
     private float extraDelayOnSpace = 1.0f;
+    [SerializeField]
+    private Image discoveredImageComponent;
     public int maxVisibleChars { get; set; }
     public bool doneExplaining { get; private set; }
 
     public override void EnterState(ExplanationManager explanationMenu)
     {
         explanationMenu.canvas.enabled = true;
+        discoveredImageComponent.sprite = explanationMenu.item.GetComponent<SpriteRenderer>().sprite;
         if (!explanationMenu.isMainMenu)
         {
             content.SetText(explanationMenu.item.Description);
