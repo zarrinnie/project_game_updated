@@ -11,8 +11,9 @@ public class ExplanationManager : MonoBehaviour {
     public DrawerManager drawer;
     public HiddenObjectManager item;
     public string AltDesc { get; set; }
+    public Sprite AltSprite { get; set; }
     
-    public bool isMainMenu { get; set; }
+    public bool isMainMenu; 
 
     void Start(){
         canvas = gameObject.GetComponent<Canvas>();

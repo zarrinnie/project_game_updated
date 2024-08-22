@@ -15,6 +15,7 @@ public class LevelPanelController : MonoBehaviour
     private Sprite lockSprite;
     [SerializeField]
     private Color lockColor;
+    public List<Button> enabledButtons = new List<Button>();
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,9 @@ public class LevelPanelController : MonoBehaviour
                 instantiatedImage.sprite = lockSprite; 
                 instantiatedImage.color = lockColor;
                 instantiatedPlayButton.enabled = false;
+            } else {
+                enabledButtons.Add(instantiatedPlayButton);
+                Debug.Log(enabledButtons.Count);
             }
         });
     }

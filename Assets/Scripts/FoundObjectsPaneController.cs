@@ -23,6 +23,7 @@ public class FoundObjectsPaneController : MonoBehaviour
             instantiatedPane.GetComponent<Button>().onClick.AddListener(() => {
                 explanationManager.isMainMenu = true;
                 explanationManager.AltDesc = Resources.Load<TextAsset>(hiddenObject.name).text;
+                explanationManager.AltSprite = hiddenObject.sprite;
                 explanationManager.SwitchState(explanationManager.explaining);
             });
 

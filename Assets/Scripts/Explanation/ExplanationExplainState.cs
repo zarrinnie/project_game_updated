@@ -38,13 +38,14 @@ public class ExplanationExplainState : State<ExplanationManager>
     public override void EnterState(ExplanationManager explanationMenu)
     {
         explanationMenu.canvas.enabled = true;
-        discoveredImageComponent.sprite = explanationMenu.item.GetComponent<SpriteRenderer>().sprite;
         if (!explanationMenu.isMainMenu)
         {
             content.SetText(explanationMenu.item.Description);
             explanationMenu.clock.SwitchState(explanationMenu.clock.paused);
+            discoveredImageComponent.sprite = explanationMenu.item.GetComponent<SpriteRenderer>().sprite;
         } else {
             content.SetText(explanationMenu.AltDesc);
+            discoveredImageComponent.sprite = explanationMenu.AltSprite;
         }
         explanationMenu.StartCoroutine(TypeWrite(explanationMenu));
 
