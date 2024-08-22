@@ -9,16 +9,14 @@ public class LoadState : State<SaveDataManager>
 {
     public override void EnterState(SaveDataManager saveManager)
     {
-        Debug.Log("Loading...");
-        Debug.Log(saveManager.SaveDataPath);
-        if (!File.Exists(saveManager.SaveDataPath))
+        if (!File.Exists(SaveDataManager.SaveDataPath))
         {
-            File.WriteAllText(saveManager.SaveDataPath, JsonConvert.SerializeObject(saveManager.save, Formatting.Indented));
+            File.WriteAllText(SaveDataManager.SaveDataPath, JsonConvert.SerializeObject(saveManager.save, Formatting.Indented));
         }
         else
         {
             // The save data from the savefile
-            SaveData newSaveData = JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(saveManager.SaveDataPath));
+            SaveData newSaveData = JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(SaveDataManager.SaveDataPath));
             // The deserialized hidden objects
             List<SerializedHiddenObject> deserializedHiddenObjects = newSaveData.serializedHiddenObjects;
             List<Level> deserializedLevels = newSaveData.unlockedLevels;

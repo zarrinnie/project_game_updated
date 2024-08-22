@@ -21,8 +21,8 @@ public class SavingState : State<SaveDataManager>
 
         manager.save.UnlockLevel(SceneManager.GetActiveScene().buildIndex);
 
-        Debug.Log(JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(manager.SaveDataPath)));
-        File.WriteAllText(manager.SaveDataPath, JsonConvert.SerializeObject(manager.save));
+        Debug.Log(JsonConvert.DeserializeObject<SaveData>(File.ReadAllText(SaveDataManager.SaveDataPath)));
+        File.WriteAllText(SaveDataManager.SaveDataPath, JsonConvert.SerializeObject(manager.save));
 
         manager.SwitchState(manager.loading);
     }

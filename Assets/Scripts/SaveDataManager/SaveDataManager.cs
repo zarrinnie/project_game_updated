@@ -11,7 +11,7 @@ public class SaveDataManager : MonoBehaviour
     public State<SaveDataManager> current;
     public LoadState loading = new LoadState();
     public SavingState saving = new SavingState();
-    public string SaveDataPath { get; private set; }
+    public static string SaveDataPath { get; private set; }
     public SaveData save;
 
     void Awake(){
