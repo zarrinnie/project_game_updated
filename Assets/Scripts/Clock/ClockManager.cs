@@ -21,17 +21,11 @@ public class ClockManager : MonoBehaviour
     [NonSerialized]
     public float timePassed = 0;
 
-    [NonSerialized]
-    public Sprite clockSprite;
-
-    [SerializeField]
-    private Image clockImageComponent;
+    public Image clockImageComponent;
 
     // Start is called before the first frame update
     void Start()
     {
-        clockSprite = clockImageComponent.sprite;
-
         currentState = normal;
         currentState.EnterState(this);
 
