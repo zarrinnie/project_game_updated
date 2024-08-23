@@ -1,39 +1,36 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [Serializable]
-public class ExplanationExplainState : State<ExplanationManager>
+public class ExplanationExplainState : State<ExplanationManager>, ITypewritable<ExplanationManager> 
 {
+    // Inspector fields
     [SerializeField]
     private Animator speakerAnimator;
     [SerializeField]
     private Animator scrollbarAnimator;
     [SerializeField]
     private TextMeshProUGUI content;
-    public TextMeshProUGUI Content
-    {
-        get
-        {
-            return content;
-        }
-
-        set
-        {
-            content = value;
-        }
-    }
     [SerializeField]
     private float explanationSpeed = 0.05f;
     [SerializeField]
     private float extraDelayOnSpace = 1.0f;
     [SerializeField]
     private Image discoveredImageComponent;
+    [SerializeField]
+    private List<Link> links;
     public int maxVisibleChars { get; set; }
     public bool doneExplaining { get; private set; }
+
+    // Properties
+    public List<Link> Links { get { return links; } set { links = value; }}
+    public TextMeshProUGUI TextMeshPro { get { return content; } set { content = value; } }
 
     public override void EnterState(ExplanationManager explanationMenu)
     {
@@ -97,5 +94,10 @@ public class ExplanationExplainState : State<ExplanationManager>
         doneExplaining = true;
 
         yield break;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        TextUtils.OpenLink(TextMeshPro, Links);
     }
 }

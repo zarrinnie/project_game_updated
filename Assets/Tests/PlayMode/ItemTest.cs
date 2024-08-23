@@ -38,7 +38,7 @@ public class ItemTest
         yield return new WaitForSeconds(1);
 
         Assert.IsTrue(explanation.explaining.doneExplaining);
-        Assert.AreEqual(item.Description.Length, explanation.explaining.Content.text.Length);
+        Assert.AreEqual(item.Description.Length, explanation.explaining.TextMeshPro.text.Length);
 
         yield return new WaitForSeconds(1);
 
