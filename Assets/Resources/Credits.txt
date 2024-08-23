@@ -1,0 +1,7 @@
+Yves Straten () - Gameplay / UI programmer
+Zarrin Nadhira Sigit () - Artist / Level designer
+
+These sources, including art and photos have allowed us to create this game, as such, we would like to give our thanks to: 
+
+<link="Ayadi"><style="Clickable">Ayadi Gaith</style></link> on Unsplash for his photos
+<link="Titivillus"><style="Clickable">Titivillus Foundry</style></link> for the Samarkan Font (Normal and Oblique)
