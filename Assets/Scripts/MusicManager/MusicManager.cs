@@ -51,7 +51,6 @@ public class MusicManager : MonoBehaviour
     {
         if (textMeshes.Any(textMesh => textMesh == null) && buttons.Any(button => button == null)){
             return;
-
         } else {
             textMeshes.ForEach(textMesh =>
             {
