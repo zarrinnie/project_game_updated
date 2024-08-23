@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,17 +15,23 @@ public class SavingTest {
 
     [UnityTest]
     public IEnumerator Saving(){
+        SaveDataManager saveDataManager = GameObject.Find("SaveDataManager").GetComponent<SaveDataManager>();
         DrawerManager drawer = GameObject.Find("Item_drawer").GetComponent<DrawerManager>();
+        ExplanationManager explanation = GameObject.Find("Explanation_canvas").GetComponent<ExplanationManager>();
+
         foreach(HiddenObjectManager hiddenObject in drawer.hiddenObjects){
             hiddenObject.SwitchState(hiddenObject.transitionState);
-            Time.timeScale = 10;
-            yield return new WaitForSeconds(1);
 
-            Time.timeScale = 1;
             yield return new WaitForSeconds(1);
+            explanation.explaining.maxVisibleChars = explanation.item.Description.Length;
 
-            Assert.AreEqual(hiddenObject.currentState, hiddenObject.disabled);
+            yield return new WaitForSeconds(1);
+            explanation.SwitchState(explanation.idle);
         }
+
+        yield return new WaitForSeconds(1);
+        Assert.AreEqual(saveDataManager.save.unlockedLevels.Count(unlockedLevel => unlockedLevel.unlocked), 1);
+
 
         yield return null;
     }
