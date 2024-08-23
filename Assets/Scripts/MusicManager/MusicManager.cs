@@ -19,6 +19,9 @@ public class MusicManager : MonoBehaviour
     public AudioSource audioClip;
     public List<TextMeshProUGUI> textMeshes;
     public List<GameObject> buttons;
+    [SerializeField]
+    [Range(0.16f, 1f)]
+    private float volume = 0.16f;
 
     void Awake()
     {
@@ -37,6 +40,7 @@ public class MusicManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        audioClip.volume = volume; 
 
         current.UpdateState(this);
     }
