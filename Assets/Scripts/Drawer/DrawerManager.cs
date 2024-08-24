@@ -11,6 +11,7 @@ public class DrawerManager : MonoBehaviour {
     public FinishedLevelManager finishedLevelManager;
     public GameObject textLabelPrefab;
     public TextMeshProUGUI[] meshes;
+    public int score;
 
     void Start(){
         meshes = new TextMeshProUGUI[hiddenObjects.Length];

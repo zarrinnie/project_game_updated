@@ -6,6 +6,7 @@ public class HiddenObjectTransition : State<HiddenObjectManager>
 {
     public override void EnterState(HiddenObjectManager item)
     {
+        item.explanationManager.drawer.score += 1;
         item.StartCoroutine(jumpToDrawer(item, item.explanationManager.drawer.meshes[item.Index].transform.position));
     }
 

@@ -1,11 +1,10 @@
 using NUnit.Framework;
 using UnityEngine.SceneManagement;
 
-public class LevelTest {
-
+public class GameTest {
     [OneTimeSetUp]
-    public void LoadTestScene(){
+    public void SetupStartingScene(){
+        SceneManager.LoadScene("Title_screen");
         SceneManager.LoadScene("Main_menu");
-        SceneManager.LoadScene("Level_UI");
     }
 }

@@ -11,52 +11,65 @@ public class SaveDataManager : MonoBehaviour
     public State<SaveDataManager> current;
     public LoadState loading = new LoadState();
     public SavingState saving = new SavingState();
-    public string SaveDataPath { get; private set; }
+    public static string SaveDataPath { get; private set; }
     public SaveData save;
 
-    void Awake(){
+    void Awake()
+    {
         SaveDataPath = Application.persistentDataPath + "/savefile.json";
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void Start(){
+    void Start()
+    {
         current = loading;
         current.EnterState(this);
     }
 
-    void Update(){
+    void Update()
+    {
         current.UpdateState(this);
     }
 
-    public void SwitchState(State<SaveDataManager> state){
-        current = state; 
+    public void SwitchState(State<SaveDataManager> state)
+    {
+        current = state;
         state.EnterState(this);
     }
 }
 
 [Serializable]
-public class SaveData {
+public class SaveData
+{
     public DateTime TimeSaved = DateTime.Now;
 
     public List<SerializedHiddenObject> serializedHiddenObjects;
     public List<Level> unlockedLevels;
-    public SaveData(){
+    public SaveData()
+    {
         serializedHiddenObjects = new List<SerializedHiddenObject>();
     }
 
-    public SaveData(List<SerializedHiddenObject> serializedHiddenObjects){
+    public SaveData(List<SerializedHiddenObject> serializedHiddenObjects)
+    {
         this.serializedHiddenObjects = serializedHiddenObjects;
     }
 
-    public void UnlockLevel(int buildIndex){
+    public void UnlockLevel(int buildIndex)
+    {
         Level lastLevel = unlockedLevels.Last();
 
-        for(int i = 0; i < unlockedLevels.Count; i++){
+        for (int i = 0; i < unlockedLevels.Count; i++)
+        {
             Level current = unlockedLevels[i];
-            if(current.buildIndex == buildIndex){
-                if(current.Equals(lastLevel)){
+            if (current.buildIndex == buildIndex)
+            {
+                if (current.Equals(lastLevel))
+                {
                     current.unlocked = true;
-                } else {
+                }
+                else
+                {
                     unlockedLevels[i + 1].unlocked = true;
                 }
             }
@@ -70,33 +83,40 @@ public class SaveData {
 }
 
 [Serializable]
-public class Level {
+public class Level
+{
     public int buildIndex;
     [JsonIgnore]
     public string levelName;
     [JsonProperty]
-    public bool unlocked { get; set; }
+    public bool Unlocked { get { return unlocked; } set { unlocked = value; } }
 
-    public Level Unlock(){
+    [SerializeField]
+    public bool unlocked;
+
+    public Level Unlock()
+    {
         return new Level(this.buildIndex, true);
     }
 
-    public Level(int buildIndex, bool unlocked){
-        this.buildIndex = buildIndex; 
+    public Level(int buildIndex, bool unlocked)
+    {
+        this.buildIndex = buildIndex;
         this.unlocked = unlocked;
     }
 
 }
 
 [Serializable]
-public class SerializedHiddenObject {
-    public int id; 
+public class SerializedHiddenObject
+{
+    public int id;
     [JsonIgnore]
     public Sprite sprite;
     [JsonIgnore]
     public string name;
     [JsonProperty]
-    public bool found {set; get;} = false;
+    public bool found { set; get; } = false;
 
     public override string ToString()
     {

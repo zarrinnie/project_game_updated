@@ -9,7 +9,7 @@ public class ClockAgitatedState : State<ClockManager>
     private FinishedLevelManager finishedLevelManager;
     public override void EnterState(ClockManager clock)
     {
-        clock.clockSprite = clock.clockStates[2].StateSprite;
+        clock.clockImageComponent.sprite = clock.clockStates[2].StateSprite;
         clock.lastState = this;
     }
 

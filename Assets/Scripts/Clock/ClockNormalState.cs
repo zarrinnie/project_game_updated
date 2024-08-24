@@ -4,16 +4,15 @@ using UnityEngine.UI;
 
 public class ClockNormalState : State<ClockManager>
 {
-    private int index = 0;
     public override void EnterState(ClockManager clock)
     {
-        clock.clockSprite = clock.clockStates[index].StateSprite;
+        clock.clockImageComponent.sprite = clock.clockStates[0].StateSprite;
         clock.lastState = this;
     }
 
     public override void UpdateState(ClockManager clock)
     {
-        if(clock.isLessThanLimit(index)){
+        if(clock.isLessThanLimit(1)){
             clock.SwitchState(clock.uncalm);
         }
     }

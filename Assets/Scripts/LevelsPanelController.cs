@@ -15,6 +15,7 @@ public class LevelPanelController : MonoBehaviour
     private Sprite lockSprite;
     [SerializeField]
     private Color lockColor;
+    public List<Button> enabledButtons;
 
     // Start is called before the first frame update
     void Start()
@@ -32,11 +33,12 @@ public class LevelPanelController : MonoBehaviour
 
             instantiatedLevelPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(instantiatedLevelPanel.name);
             instantiatedPlayButton.onClick.AddListener(() => SceneManager.LoadScene(level.buildIndex));
+            enabledButtons.Add(instantiatedPlayButton);
 
             if (!level.unlocked)
             {
                 instantiatedLevelPanel.transform.GetChild(2).gameObject.SetActive(true);
-                instantiatedImage.sprite = lockSprite; 
+                instantiatedImage.sprite = lockSprite;
                 instantiatedImage.color = lockColor;
                 instantiatedPlayButton.enabled = false;
             }
