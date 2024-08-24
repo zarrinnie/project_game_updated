@@ -25,9 +25,10 @@ public class HintPanelManager : MonoBehaviour
     public HiddenObjectHighlighted hiddenObjectHighlighted = new HiddenObjectHighlighted();
     public int availableHints;
     public int randIndex;
+    private Animator garudaAnimator;
 
     void Start(){
-
+        garudaAnimator = garudaBird.GetComponent<Animator>();
     }
 
     void Update(){
@@ -54,6 +55,7 @@ public class HintPanelManager : MonoBehaviour
         float t = 0;
         float timeToMove = 3f;
         audioSource.Play();
+        garudaAnimator.SetBool("Flying", true);
         yield return new WaitForSeconds(1);
 
         while (t < 1)
@@ -66,7 +68,9 @@ public class HintPanelManager : MonoBehaviour
         garudaBird.transform.position = itemPost.transform.position;
         itemPost.highlighted = hiddenObjectHighlighted;
         itemPost.SwitchState(hiddenObjectHighlighted);
+        garudaAnimator.SetBool("Flying", false);
         // yield return new WaitForSeconds(1);
+        garudaAnimator.SetBool("Flying", true);
 
         t = 0;
         while (t < 1)
@@ -79,7 +83,7 @@ public class HintPanelManager : MonoBehaviour
         garudaBird.transform.position = gameObject.transform.position;
 
         hintButton.interactable = true;
+        garudaAnimator.SetBool("Flying", false);
         yield break;
-
     }
 }
