@@ -11,12 +11,11 @@ public class ClockManager : MonoBehaviour
     public State<ClockManager> currentState;
     public State<ClockManager> lastState = new ClockNormalState();
     public ClockNormalState normal = new ClockNormalState();
-    public ClockUncalmState uncalm = new ClockUncalmState();
     public ClockAgitatedState agitated = new ClockAgitatedState();
     public ClockPausedState paused = new ClockPausedState();
 
     public TextMeshProUGUI clockText;
-    public ClockState[] clockStates = new ClockState[3];
+    public ClockState[] clockStates = new ClockState[2];
     public TimeSpan timer = TimeSpan.FromMinutes(5);
     [NonSerialized]
     public float timePassed = 0;
