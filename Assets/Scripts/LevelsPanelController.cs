@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -25,23 +26,33 @@ public class LevelPanelController : MonoBehaviour
         saveDataManager.save.unlockedLevels.ForEach(level =>
         {
             GameObject instantiatedLevelPanel = Instantiate(levelPanelPrefab, transform);
-            Image instantiatedImage = instantiatedLevelPanel.transform.GetChild(2).GetComponent<Image>();
+            Image instantiatedLockImage = instantiatedLevelPanel.transform.GetChild(2).GetComponent<Image>();
+            Animator instantiatedAnimator = instantiatedLevelPanel.transform.GetChild(1).GetChild(0).GetComponent<Animator>();
             Button instantiatedPlayButton = instantiatedLevelPanel.transform.GetChild(1).GetChild(1).GetComponent<Button>();
 
             // The name of the level
             instantiatedLevelPanel.name = level.levelName;
 
             instantiatedLevelPanel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(instantiatedLevelPanel.name);
-            instantiatedPlayButton.onClick.AddListener(() => SceneManager.LoadScene(level.buildIndex));
+            instantiatedPlayButton.onClick.AddListener(() => StartCoroutine(Zoom(instantiatedAnimator, level)));
+
             enabledButtons.Add(instantiatedPlayButton);
 
             if (!level.unlocked)
             {
                 instantiatedLevelPanel.transform.GetChild(2).gameObject.SetActive(true);
-                instantiatedImage.sprite = lockSprite;
-                instantiatedImage.color = lockColor;
+                instantiatedLockImage.sprite = lockSprite;
+                instantiatedLockImage.color = lockColor;
                 instantiatedPlayButton.enabled = false;
             }
         });
+    }
+
+    public IEnumerator Zoom(Animator animator, Level level)
+    {
+        animator.SetBool("Zoom", true);
+        // Improve this
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(level.buildIndex);
     }
 }

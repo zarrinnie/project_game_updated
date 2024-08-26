@@ -38,8 +38,6 @@ public class ClockTest : LevelTest
         clock.timer = clock.clockStates[0].SpanLimit - TimeSpan.FromSeconds(1);
         yield return new WaitForSeconds(1);
 
-        Assert.AreEqual(clock.currentState, clock.uncalm);
-
         clock.timer = clock.clockStates[1].SpanLimit - TimeSpan.FromSeconds(1);
 
         yield return new WaitForSeconds(1);

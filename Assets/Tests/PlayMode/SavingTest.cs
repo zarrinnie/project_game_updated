@@ -23,7 +23,7 @@ public class SavingTest {
             hiddenObject.SwitchState(hiddenObject.transitionState);
 
             yield return new WaitForSeconds(1);
-            explanation.explaining.maxVisibleChars = explanation.item.Description.Length;
+            explanation.maxVisibleChars = explanation.item.Description.Length;
 
             yield return new WaitForSeconds(1);
             explanation.SwitchState(explanation.idle);

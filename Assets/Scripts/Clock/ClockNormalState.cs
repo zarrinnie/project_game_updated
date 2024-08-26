@@ -13,7 +13,7 @@ public class ClockNormalState : State<ClockManager>
     public override void UpdateState(ClockManager clock)
     {
         if(clock.isLessThanLimit(1)){
-            clock.SwitchState(clock.uncalm);
+            clock.SwitchState(clock.agitated);
         }
     }
 }
