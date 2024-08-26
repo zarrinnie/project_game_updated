@@ -6,25 +6,23 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ExplanationManager : MonoBehaviour, IExplainable
-{
+public class ExplanationManagerMainMenu: MonoBehaviour, IExplainable {
     public State<IExplainable> currentState;
     public ExplanationIdleState idle = new ExplanationIdleState();
     public ExplanationExplainState explaining = new ExplanationExplainState();
 
     public Canvas Canvas { get { return canvas; } set { canvas = value; } }
-    public Sprite DiscoveredSprite { get { return discoveredSprite; } set { discoveredSprite = value; } }
+    public Sprite DiscoveredSprite { get { return discoveredSprite; } set { discoveredSprite = value; }}
     public TextMeshProUGUI TextMeshPro { get { return textMeshPro; } set { textMeshPro = value; } }
     public string Description { get { return description; } set { description = value; } }
     public Animator SpeakerAnimator { get { return speakerAnimator; } set { speakerAnimator = value; } }
-    public Animator ScrollBarAnimator { get { return scrollBarAnimator; } set { scrollBarAnimator = value; } }
-    public List<Link> Links { get { return links; } set { links = value; } }
+    public Animator ScrollBarAnimator { get { return scrollBarAnimator; } set { scrollBarAnimator = value; }}
+    public List<Link> Links { get { return links; } set { links = value; }}
     public bool DoneExplaining { get { return doneExplaining; } set { doneExplaining = value; } }
     public int maxVisibleChars { get; set; }
 
     [SerializeField]
     private Canvas canvas;
-    [SerializeField]
     private Sprite discoveredSprite;
     [SerializeField]
     private Image discoveredImageComponent;
@@ -42,9 +40,6 @@ public class ExplanationManager : MonoBehaviour, IExplainable
     private List<Link> links;
     private bool doneExplaining;
     private string description;
-    public ClockManager clock;
-    public DrawerManager drawer;
-    public HiddenObjectManager item;
 
     void Start()
     {
@@ -66,17 +61,6 @@ public class ExplanationManager : MonoBehaviour, IExplainable
     public void Idle()
     {
         canvas.enabled = false;
-
-        // Turn on clock, to its last state before it was disabled
-        clock.SwitchState(clock.lastState);
-
-        if (item != null)
-        {
-            // Disable the item and re-enable the drawer
-            item.SwitchState(item.disabled);
-            item.Explained = true;
-        }
-        drawer.SwitchState(drawer.idleState);
     }
 
     public void CheckInput()
@@ -95,8 +79,7 @@ public class ExplanationManager : MonoBehaviour, IExplainable
             SwitchState(idle);
         }
 
-        if (doneExplaining)
-        {
+        if(doneExplaining){
             Debug.Log("Show");
             scrollBarAnimator.SetBool("Appear", true);
         }
@@ -110,10 +93,9 @@ public class ExplanationManager : MonoBehaviour, IExplainable
     public void Explain()
     {
         canvas.enabled = true;
-        textMeshPro.SetText(item.Description);
-        clock.SwitchState(clock.paused);
-        discoveredImageComponent.sprite = item.GetComponent<SpriteRenderer>().sprite;
-        description = item.Description;
+        textMeshPro.SetText(description);
+        discoveredImageComponent.sprite = discoveredSprite;
+
         StartCoroutine(TypeWrite());
     }
 

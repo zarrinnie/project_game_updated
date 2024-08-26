@@ -9,7 +9,7 @@ public class FoundObjectsPaneController : MonoBehaviour
     [SerializeField]
     private Material notFoundMaterial;
     [SerializeField]
-    private ExplanationManager explanationManager;
+    private ExplanationManagerMainMenu explanationManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,9 +21,8 @@ public class FoundObjectsPaneController : MonoBehaviour
 
             foundImage.GetComponent<Image>().sprite = hiddenObject.sprite;
             instantiatedPane.GetComponent<Button>().onClick.AddListener(() => {
-                explanationManager.isMainMenu = true;
-                explanationManager.AltDesc = Resources.Load<TextAsset>(hiddenObject.name).text;
-                explanationManager.AltSprite = hiddenObject.sprite;
+                explanationManager.Description = Resources.Load<TextAsset>(hiddenObject.name).text;
+                explanationManager.DiscoveredSprite = hiddenObject.sprite;
                 explanationManager.SwitchState(explanationManager.explaining);
             });
 

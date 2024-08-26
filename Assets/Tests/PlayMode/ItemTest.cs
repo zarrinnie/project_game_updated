@@ -33,12 +33,12 @@ public class ItemTest
         yield return new WaitForSeconds(2);
         Assert.AreEqual(TimeSpan.FromSeconds(299), clock.timer);
 
-        explanation.explaining.maxVisibleChars = explanation.item.Description.Length;
+        explanation.maxVisibleChars = explanation.item.Description.Length;
 
         yield return new WaitForSeconds(1);
 
-        Assert.IsTrue(explanation.explaining.doneExplaining);
-        Assert.AreEqual(item.Description.Length, explanation.explaining.TextMeshPro.text.Length);
+        Assert.IsTrue(explanation.DoneExplaining);
+        Assert.AreEqual(item.Description.Length, explanation.TextMeshPro.text.Length);
 
         yield return new WaitForSeconds(1);
 
